@@ -1,6 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 from datetime import date, timedelta
 from app.schemas.dto import PaymentScheduleElementDto
+from dateutil.relativedelta import relativedelta
 
 def calculate_annuity(amount: Decimal, rate: Decimal, term: int) -> Decimal:
     '''формула аннуитета'''
@@ -21,12 +22,25 @@ def build_schedule(amount: Decimal, rate: Decimal, term: int) -> list[PaymentSch
     remaining = amount # запоминаем сколько мы еще должны банку
     schedule = []
     start_date = date.today()
-    
+
+    for i in range(1, term + 1):
+        interest = (remaining * monthly_rate).quantize(Decimal("0.01"))
+        
     for i in range(term):
         interest = (remaining * monthly_rate).quantize(Decimal("0.01")) #сколько из платежа уйдет в проценты
-        debt = monthly_payment - interest # сколько на сам долг
+        # в последний месяц закрываем весь долг
+        if i == term:
+            debt = remaining
+            total_payment = debt + interest
+        else:
+            debt = monthly_payment - interest
+            total_payment = monthly_payment 
+
         remaining -= debt
-        
+
+        # используем relativedelta для календарных месяцев а не просто 30 дней
+        payment_date = start_date + relativedelta(months=i)
+
         item = PaymentScheduleElementDto(
             number=i+1,
             date=start_date + timedelta(days=30 * i), # просто прибавляем 30 дней
