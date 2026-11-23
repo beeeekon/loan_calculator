@@ -14,7 +14,7 @@
 ### 1. Если установлен Git
 Открой терминал (Командную строку или PowerShell) и выполни:
 ```bash
-git clone https://github.com/ТВОЙ_НИК/loan_calculator.git
+git clone https://github.com/beeeekon/loan_calculator
 cd loan_calculator
 ```
 ### 2. Если Git не установлен
