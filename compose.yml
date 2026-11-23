@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${APP_PORT}:8000"
+    volumes:
+      - .:/code
+    environment:
+      - WATCHFILES_FORCE_POLLING=true

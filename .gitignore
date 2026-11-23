@@ -1,0 +1,14 @@
+# Виртуальное окружение Python
+.venv/
+__pycache__/
+*.pyc
+
+# Настройки Docker
+.env
+
+# Настройки VS Code
+.vscode/
+
+# Файлы ОС
+.DS_Store
+Thumbs.db
