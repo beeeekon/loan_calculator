@@ -1,6 +1,6 @@
 from decimal import Decimal
 from uuid import UUID
-from datetime import date
+import datetime
 from pydantic import BaseModel, Field
 
 
@@ -12,7 +12,7 @@ class LoanStatementRequestDto(BaseModel):
     lastName: str = Field(min_length=2, max_length=50, description="Фамилия")
     middleName: str = Field(min_length=2, max_length=50, description="Отчество")
     email: str = Field(pattern=r"^[^@]+@[^@]+\.[^@]+$", description="Электронная почта") # проверка на email из дипсика
-    birthdate: date = Field(description="Дата рождения")
+    birthdate: datetime.date = Field(description="Дата рождения")
     passportSeries: str = Field(pattern=r"^\d{4}$", description="Серия паспорта (4 цифры)") # ^ начало строки \d{} строго столько 
     passportNumber: str = Field(pattern=r"^\d{6}$", description="Номер паспорта (6 цифр)")# $ конец строки
 
@@ -35,7 +35,7 @@ class ScoringDataDto(BaseModel):
     firstName: str = Field(description="Имя")
     lastName: str = Field(description="Фамилия")
     middleName: str = Field(description="Отчество")
-    birthdate: date = Field(description="Дата рождения")
+    birthdate: datetime.date = Field(description="Дата рождения")
     passportSeries: str = Field(description="Серия паспорта")
     passportNumber: str = Field(description="Номер паспорта")
     isInsuranceEnabled: bool = Field(description="Включена ли страховка")
@@ -45,7 +45,7 @@ class ScoringDataDto(BaseModel):
 class PaymentScheduleElementDto(BaseModel):
     '''Элемент графика платежей'''
     number: int = Field(description="Порядковый номер платежа")
-    date: date = Field(description="Дата платежа")
+    date: datetime.date = Field(description="Дата платежа")
     totalPayment: Decimal = Field(description="Общая сумма платежа")
     interestPayment: Decimal = Field(description="Сумма процентов")
     debtPayment: Decimal = Field(description="Сумма основного долга")

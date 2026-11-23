@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     #env_file=".env" означает что pydantic будет искать файл .env в корне проекта
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
+    APP_PORT: int = 8000
+
     #базовая процентная ставка
     BASE_RATE: Decimal = Decimal("15.0")
     
