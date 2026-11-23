@@ -1,0 +1,43 @@
+# Loan Calculator Microservice
+
+Микросервис для расчёта кредитных предложений и полного расчёта кредита.
+Написан на Python с использованием FastAPI.
+
+## Стек технологий
+- Python 3.11+
+- FastAPI
+- Pydantic (валидация данных)
+- Docker & Docker Compose
+
+## Как скачать проект
+
+### 1. Если установлен Git
+Открой терминал (Командную строку или PowerShell) и выполни:
+```bash
+git clone https://github.com/ТВОЙ_НИК/loan_calculator.git
+cd loan_calculator
+```
+### 2. Если Git не установлен
+ - Зайди на страницу своего репозитория на GitHub.
+ - Нажми зелёную кнопку Code → Download ZIP.
+ - Распакуй скачанный архив в любую папку (например, на Рабочий стол).
+
+## Как запустить
+Нужен только Docker.
+
+1. Установи [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Запусти [Docker Desktop], чтобы в трее была синяя точка у кита
+3. Открой терминал в папке с проектом (там, где лежит `compose.yaml`).
+4. Выполни команду:
+   ```bash
+   docker compose up --build
+   ```
+5. Чтобы выключить сервер в том же терминале нажми ctrl+C или выполни команду:
+    ```bash
+    docker compose down
+    ```
+## Сервер
+http://127.0.0.1:8000/
+
+## Документация Swagger 
+http://127.0.0.1:8000/docs
