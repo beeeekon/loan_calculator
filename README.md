@@ -3,32 +3,26 @@
 Микросервис для расчёта кредитных предложений и полного расчёта кредита.
 Написан на Python с использованием FastAPI.
 
-**Стек технологий**
+## Стек технологий
 - Python 3.11+
 - FastAPI
 - Pydantic (валидация данных)
 - Docker & Docker Compose
 
----
-
 ## Как скачать проект
 
 ### 1. Если установлен Git
-
 Открой терминал (Командную строку или PowerShell) и выполни:
 ```bash
 git clone https://github.com/beeeekon/loan_calculator
 cd loan_calculator
 ```
-
 ### 2. Если Git не установлен
-
  - Зайди на страницу своего репозитория на GitHub.
  - Нажми зелёную кнопку Code → Download ZIP.
  - Распакуй скачанный архив в любую папку (например, на Рабочий стол).
 
 ## Как запустить
-
 Нужен только Docker.
 
 1. Установи [Docker Desktop](https://www.docker.com/products/docker-desktop/).
@@ -42,11 +36,8 @@ cd loan_calculator
     ```bash
     docker compose down
     ```
-
 ## Сервер
-
 http://127.0.0.1:8000/
 
 ## Документация Swagger 
-
 http://127.0.0.1:8000/docs
