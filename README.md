@@ -26,7 +26,7 @@ cd loan_calculator
 Нужен только Docker.
 
 1. Установи [Docker Desktop](https://www.docker.com/products/docker-desktop/).
-2. Запусти [Docker Desktop], чтобы в трее была синяя точка у кита
+2. Запусти Docker Desktop, чтобы в трее была синяя точка у кита
 3. Открой терминал в папке с проектом (там, где лежит `compose.yaml`).
 4. Выполни команду:
    ```bash
