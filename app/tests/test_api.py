@@ -129,6 +129,25 @@ def test_offers_invalid_passport_series():
     #проверяем что ошибка связана именно с passportSeries
     assert "passportSeries" in response.text
 
+#///////////////////ПРЕСКОРИНГ//////
+
+def test_offers_prescoring_too_young():
+    '''если возраст меньше 18 лет, должен вернуться 400'''
+    payload = {
+        "amount": 100000,
+        "term": 12,
+        "firstName": "Ivan",
+        "lastName": "Ivanov",
+        "middleName": "Ivanovich",
+        "email": "ivan@test.com",
+        "birthdate": "2020-01-01",  # ребенок
+        "passportSeries": "1234",
+        "passportNumber": "123456"
+    }
+    response = client.post("/calculator/offers", json=payload)
+    assert response.status_code == 400
+    assert "Прескоринг" in response.text
+
 #///////////////////ЛОГИКА//////
 def test_offers_structure_and_sorting():
     '''проверяем что предложения отсортированы от худшего к лучшему и имеют все поля'''
@@ -180,5 +199,5 @@ def test_calc_with_insurance():
     #итоговая сумма должна быть больше изначальной 100000 + 5%
     assert Decimal(data["amount"]) > Decimal("100000")
     assert data["isInsuranceEnabled"] is True
-    #проверяем пск
-    assert Decimal(data["psk"]) > Decimal("0")
+    #проверяем пск (с наценкой за страховку она должна быть > 12.00)
+    assert Decimal(data["psk"]) > Decimal("12.00")

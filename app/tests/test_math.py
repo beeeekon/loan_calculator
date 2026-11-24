@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
 from app.services.math_utils import calculate_annuity, build_schedule
+from app.services.credit_calculator import calculate_credit
 
 def test_calculate_annuity():
     # 100 000 под 15% на 12 месяцев
@@ -67,8 +68,6 @@ def test_schedule_structure():
     assert first.debtPayment > 0
     assert first.remainingDebt > 0
 
-from app.services.credit_calculator import calculate_credit
-
 def test_credit_without_insurance():
     '''страховки нет итоговая сумма не меняется'''
     result = calculate_credit(
@@ -82,3 +81,5 @@ def test_credit_without_insurance():
     assert result.amount == Decimal("100000")
     assert result.monthlyPayment > 0
     assert result.psk > 0
+    # НОВОЕ: проверяем, что ПСК равна ставке (так как страховки нет)
+    assert result.psk == Decimal("15.00")

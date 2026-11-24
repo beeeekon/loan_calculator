@@ -2,6 +2,7 @@ import logging
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException
 from app.schemas.dto import LoanStatementRequestDto, LoanOfferDto, ScoringDataDto, CreditDto
+from app.services.prescoring import prescoring
 from app.services.offers_calculator import calculate_offers
 from app.services.credit_calculator import calculate_credit
 from app.core.config import settings
@@ -17,6 +18,12 @@ def get_offers(request: LoanStatementRequestDto):
     '''расчет 4 кредитных предложений'''
     
     logger.info(f"Пришел запрос /offers: сумма={request.amount}, срок={request.term}")
+
+    # НОВОЕ: прескоринг
+    if not prescoring(request):
+        logger.error(f"Код 400: Не пройден прескоринг /offers: дата рождения={request.birthdate}")
+        raise HTTPException(status_code=400, detail="Прескоринг не пройден: проверьте возраст и дату рождения")
+        
     
     statement_id = uuid4()
     offers = calculate_offers(

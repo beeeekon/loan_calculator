@@ -15,8 +15,13 @@ def calculate_credit(amount: Decimal, term: int, rate: Decimal, is_insurance: bo
     schedule = build_schedule(final_amount, rate, term)
     
     # cчитаем ПСК полная стоимость кредита
-    total_paid = payment * term
-    psk = ((total_paid / final_amount) * Decimal("100") - Decimal("100")).quantize(Decimal("0.01"))
+    # Если страховка есть, ПСК = ставка + (ставка * процент страховки)
+    # Иначе ПСК = ставка
+    psk_value = rate
+    if is_insurance:
+        psk_value += rate * settings.INSURANCE_COST_RATE
+        
+    psk = psk_value.quantize(Decimal("0.01"))
     
     # 4. Создаем и возвращаем итоговый DTO
     result = CreditDto(
